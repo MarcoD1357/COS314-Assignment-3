@@ -297,15 +297,15 @@ public class ArithmeticGP {
             String[] parts = line.split(",");
             if (parts.length < 2) continue;
             double[] f = new double[parts.length - 1];
-            for (int i = 0; i < parts.length - 1; i++) {
+            for (int i = 1; i < parts.length; i++) {
                 String val = parts[i].trim();
-                if (val.equals("?")) f[i] = 0.0;
-                else try { f[i] = Double.parseDouble(val); } catch (Exception e) { f[i] = 0.0; }
+                if (val.equals("?")) f[i - 1] = 0.0;
+                else try { f[i - 1] = Double.parseDouble(val); } catch (Exception e) { f[i - 1] = 0.0; }
             }
             featList.add(f);
-            String labelStr = parts[parts.length - 1].trim().toLowerCase();
-            if (labelStr.contains("no-recurrence") || labelStr.equals("0")) labelList.add(0);
-            else if (labelStr.contains("recurrence") || labelStr.equals("1")) labelList.add(1);
+            String labelStr = parts[0].trim().toLowerCase();
+            if (labelStr.equals("0")) labelList.add(0);
+            else if (labelStr.equals("1")) labelList.add(1);
             else labelList.add(0);
         }
         br.close();
